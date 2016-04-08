@@ -1,1 +1,1 @@
-# CS499---Dotson
+# CS499---Dotson Project
