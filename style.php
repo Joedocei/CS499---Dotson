@@ -48,6 +48,13 @@ a:hover
     width: 300px;
 }
 
+//for right most save button
+#saveButton
+{
+	margin-top: -50%; 
+	left: 5%;
+}
+
 .verticalLine
 {
 	margin-left: 200px;
@@ -82,4 +89,68 @@ a:hover
 {
 	width: 200px;
 	height: 50px;
+}
+
+legend {
+    padding:0 5px;
+    text-align:center;
+}
+
+.fieldset-auto-width
+{
+	display: inline-block;
+	margin-left: 35%;
+	margin-top: 1%;
+}
+
+fieldset > div {
+    margin:10px 0;
+}
+fieldset > legend + div {
+    margin-top:0;
+}
+fieldset > div:last-child {
+    margin-bottom:0;
+}
+label {
+    display:inline-block;
+    width:100px;
+}
+input {
+    width:200px;
+}
+div > input[type="submit"] {
+    background: #ccc;
+    border:1px solid #999;
+    width:auto;
+}
+input:required {
+    background:hsl(180, 50%, 90%);
+    border:1px solid #999;
+}
+input:optional {
+    background:hsl(300, 50%, 90%);
+    border:1px dotted hsl(180, 50%, 90%);
+}
+input:valid,
+input:in-range {
+    background:hsl(120, 50%, 90%);
+    border-color:hsl(120, 50%, 50%);
+}
+
+input:invalid,
+input:out-of-range {
+    border-color:hsl(0, 50%, 50%);
+    background:hsl(0, 50%, 90%);
+}
+.help {
+    display:none;
+    font-size:90%;
+}
+input:focus + .help {
+    display:inline-block;
+}
+
+div.submit {
+    margin-left:100px;
 }
