@@ -1,7 +1,8 @@
+<!--please refer to Home.php for full documentation on HTML elements and sections-->
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset=utf-8" />
 <title>Project</title>
 <link rel = "stylesheet" type = "text/css" href="style.php">
 </head>
@@ -29,10 +30,32 @@
 
 <p>
 <form action="completedEntry.php" method="post">
+	<!-- fieldset tag
+	draws a box around the related elements
+	-->
 	<fieldset class="fieldset-auto-width">
+	
+		<!-- legend tag
+		defines a caption for the <fieldset> element
+		-->
 		<legend>Book Details</legend>
 		<div>
+			<!-- label tag
+			defines a label for an <input> element
+			it provides a usability improvement for mouse users, because if 
+				the user clicks on the text within the <label> element, it toggles the control
+			for - Specifies which form element a label is bound to
+			-->
 			<label for = "title">Title:</label>
+			
+			<!-- input tag
+			specifies an input field where the user can enter data
+			name - Specifies the name of an <input> element
+			value - Specifies the value of an <input> element
+			required - Specifies that an input field must be filled out before submitting the form
+			pattern - Specifies a regular expression that an <input> element's value is checked against
+			aria-required - used to indicate that user input is required on an element before a form can be submitted
+			-->
             <input id="title" name="title" value="" required pattern="[A-Za-z-0-9]+" aria-required="true">
         </div>
 		
@@ -77,13 +100,25 @@
         </div>
 		
         <div class="submit">
+			<!-- input tag
+			specifies an input field where the user can submit form
+			value - Specifies the value of an <input> element
+			-->
             <input type="submit" value="Save">
         </div>
-		
+	
+	<!--close fieldset-->
 	</fieldset>
 <input type="submit" value="Save" id="saveButton">
+
+<!--close form-->
 </form>
+
+<!--close paragraph-->
 </p>
 
+<!--close body-->
 </body>
+
+<!--close html-->
 </html>
