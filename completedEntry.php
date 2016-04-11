@@ -133,6 +133,7 @@ Oddity : <?php echo $oddity; ?>
     fwrite($file, $output); 
 	
 	/*
+	close the newWebpage file
 	fclose — Closes an open file pointer
 	*/
     fclose ($file);
