@@ -79,7 +79,7 @@
 </div>
 
 <p>
-Title : <?php echo $title; ?><br>
+<h1>Title : <?php echo $title; ?></h1><br>
 Publisher : <?php echo $publisher; ?><br>
 Author : <?php echo $author; ?><br>
 Setting : <?php echo $setting; ?><br>
@@ -133,10 +133,16 @@ Oddity : <?php echo $oddity; ?>
     fwrite($file, $output); 
 	
 	/*
-	close the newWebpage file
+	closing the newWebpage file
 	fclose — Closes an open file pointer
 	*/
     fclose ($file);
+	
+	/*
+	change permissions on file to allow readability by all
+	chmod — Changes file mode
+	*/
+	chmod($newWebpage, 0644);
 	
 	//create variables for book table
 	$booksTable = book;
