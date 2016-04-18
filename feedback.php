@@ -1,3 +1,10 @@
+<?php
+if(isset($_GET['submit'])){
+$newQuery=$_GET['searchOption'];
+echo $newQuery;
+}
+?>
+
 <!--please refer to Home.php for full documentation on HTML elements and sections-->
 <!DOCTYPE html>
 <html>
@@ -34,7 +41,7 @@
         
     <p>
     Search in
-	<form action="feedback.php" method="post">
+	<form action="" method="GET">
         <select class="searchField" name = "searchOptions">;
             <option value = "0"> Select any... </option>";
             <option value = "publish">Publisher</option>";
@@ -159,7 +166,8 @@ mysqli_num_rows — Gets the number of rows in a result
 if(!mysqli_num_rows($response))
 {
 	//output following string to the user
-	echo "No data for " . $searchText. ". Would you like to Add an entry into the Databse?";
+	echo "No data for " . $searchText. ". Would you like to Add an entry into the Database?";
+	echo "<a href= \"entryPage.php\"> Click Here! </a>";
 }
 
 //there are result(s) in from our query
@@ -176,9 +184,9 @@ else
 	{
 		//echo a row of our reponse variable to the screen
 		// "." concatenates strings
-		echo '<tr><td align="left"><a href =\"http://www.cs.uky.edu/~jqhi222/' . 
-		$row['url'] . '\">' .
-		$row['title'] . '</td><td align="left">'  . "by" .
+		echo '<tr><td align="left"><a href =' . 
+		$row['url'] . '>' .
+		$row['title'] . '</td><td align="left">'  . "by: " .
 		$row['author'] . '</a></td>' . '</tr>';
 	}
 	//echo closing table tag

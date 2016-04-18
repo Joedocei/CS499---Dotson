@@ -53,50 +53,49 @@
 			name - Specifies the name of an <input> element
 			value - Specifies the value of an <input> element
 			required - Specifies that an input field must be filled out before submitting the form
-			pattern - Specifies a regular expression that an <input> element's value is checked against
 			aria-required - used to indicate that user input is required on an element before a form can be submitted
 			-->
-            <input id="title" name="title" value="" required pattern="[A-Za-z-0-9]+" aria-required="true">
+            <input id="title" name="title" value="" required aria-required="true">
         </div>
 		
 		<div>
 			<label for = "author">Author:</label>
-            <input id="author" name="author" value="" required pattern="[A-Za-z-0-9]+" aria-required="true">
+            <input id="author" name="author" value="" required aria-required="true">
         </div>
 		
 		<div>
 			<label for = "publish">Publisher:</label>
-            <input id="publish" name="publish" value="" pattern="[A-Za-z-0-9]+">
+            <input id="publish" name="publish" value="">
         </div>
 		
 		<div>
 			<label for = "setting">Setting:</label>
-            <input id="setting" name="setting" value="" pattern="[A-Za-z-0-9]+">
+            <input id="setting" name="setting" value="">
         </div>
 
 		<div>
 			<label for = "plot">Plot:</label>
-            <input id="plot" name="plot" value="" required pattern="[A-Za-z-0-9]+" aria-required="true">
+            <input id="plot" name="plot" value="" required aria-required="true">
         </div>
 		
 		<div>
 			<label for = "oddity">Oddity:</label>
-            <input id="oddity" name="oddity" value="" pattern="[A-Za-z-0-9]+">
+            <input id="oddity" name="oddity" value="">
         </div>
 		
 		<div>
 			<label for = "theme">Theme(s):</label>
-            <input id="theme" name="theme" value="" pattern="[A-Za-z-0-9]+">
+            <input id="theme" name="theme" value="">
         </div>
 		
 		<div>
 			<label for = "character">Character(s):</label>
-            <input id="character" name="character" value="" pattern="[A-Za-z-0-9]+">
+            <input id="character" name="character" value="">
         </div>
 		
 		<div>
 			<label for = "genre">Genre:</label>
-            <input id="genre" name="genre" value="" pattern="[A-Za-z-0-9]+">
+            <input id="genre" name="genre" value="">
         </div>
 		
         <div class="submit">

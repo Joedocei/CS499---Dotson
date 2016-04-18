@@ -39,7 +39,7 @@
 	
 	//assigning variables from user entered data
 	$title = $_POST["title"];
-	$publisher = $_POST['publisher'];
+	$publish = $_POST['publish'];
 	$author = $_POST['author'];
 	$setting = $_POST['setting'];
 	$character = $_POST['character'];
@@ -80,7 +80,7 @@
 
 <p>
 <h1>Title : <?php echo $title; ?></h1><br>
-Publisher : <?php echo $publisher; ?><br>
+Publisher : <?php echo $publish; ?><br>
 Author : <?php echo $author; ?><br>
 Setting : <?php echo $setting; ?><br>
 Character : <?php echo $character; ?><br>
@@ -116,9 +116,152 @@ Oddity : <?php echo $oddity; ?>
 	{
 		die("Connection failed: " . $conn->connect_error);
 	}
+
+	//create variables for book table
+	$booksTable = book;
 	
+	// Create a query for the database to insert the user information
+	$query = "INSERT INTO $booksTable 
+	(title,publish,setting,plot,oddity,themes,characters,genre,author) VALUES 
+	('$title','$publish','$setting','$plot','$oddity','$theme','$character','$genre','$author')";
+	
+	/*
+	the next line is commented out purposely
+	this line will show the constructed query on the screen for debug purposes
+	*/
+	//echo $query;
+
+	/*
+	Get a response from the database by sending the connection and the query
+	mysqli_query — Performs a query on the database
+	return values
+		Returns FALSE on failure. 
+		For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object. 
+		For other successful queries mysqli_query() will return TRUE.
+	*/
+	$response = mysqli_query($conn, $query);
+	
+	//if our query did not fail
+	if ($response)
+	{
+		/*
+		ouptut success to the screen - success being an valid insert into database
+		echo — Output one or more strings
+		*/
+		echo "<br>" . "New record created successfully" . "<br>";
+	}
+	else 
+	{
+		/*
+		ouptut failure to the screen
+		mysqli_error — Returns a string description of the last error
+		*/
+		echo "Error(Insert): " . $sql . "<br>" . mysqli_error($conn);
+	}
+	
+	// Create a query for the database to get the bookID 
+	$query = "SELECT * FROM $booksTable WHERE title='$title' AND author='$author'";
+	
+	/*
+	the next line is commented out purposely
+	this line will show the constructed query on the screen for debug purposes
+	*/
+	//echo $query;
+
+	/*
+	Get a response from the database by sending the connection and the query
+	mysqli_query — Performs a query on the database
+	return values
+		Returns FALSE on failure. 
+		For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object. 
+		For other successful queries mysqli_query() will return TRUE.
+	*/
+	$response = mysqli_query($conn, $query);
+	
+	//if our query did not fail
+	if ($response)
+	{
+		/*
+		ouptut success to the screen - success meaning we got a bookID
+		echo — Output one or more strings
+		*/
+		echo "<br>" . "Got result" . "<br>";
+	}
+	else 
+	{
+		/*
+		ouptut failure to the screen
+		mysqli_error — Returns a string description of the last error
+		*/
+		echo "Error(SELECT - getting bid): " . $sql . "<br>" . mysqli_error($conn);
+	}
+	
+	//initialize bookID variable to hold bid from query
+	$bookID = 0;
+	
+	/*
+	if there are no lines returned from our query
+	mysqli_num_rows — Gets the number of rows in a result
+	*/
+	if(!mysqli_num_rows($response))
+	{
+		//output following string to the user
+		echo "No data for query: $query";
+	}
+
+	//We have result(s) from our query
+	else 
+	{		
+		/*
+		while there are rows of results left from our query - should only be ONE
+		mysqli_fetch_array - fetches a result row as an associative array, a numeric array, or both. Here we use associative
+		*/
+		while($row = mysqli_fetch_array($response))
+		{
+			//set the bookID variable equal to the bookID from the query
+			$bookID = $row['bid'];
+		}
+	}
+	
+	/*
+	the next line is commented out purposely
+	this line will show the bookID on the screen for debug purposes
+	*/
+	//echo $bookID;
+
 	//create a variable to hold the new webpage url
-    $newWebpage = $title. $author .".html"; 
+    $newWebpage = $bookID .".html";
+	
+	//update database entry - adding value into the url column
+	$query = "UPDATE $booksTable SET url = '$newWebpage' WHERE bid = $bookID";
+	
+	/*
+	Get a response from the database by sending the connection and the query
+	mysqli_query — Performs a query on the database
+	return values
+		Returns FALSE on failure. 
+		For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object. 
+		For other successful queries mysqli_query() will return TRUE.
+	*/
+	$response = mysqli_query($conn, $query);
+	
+	//if our query did not fail
+	if ($response)
+	{
+		/*
+		ouptut success to the screen - success meaning a valid update into database
+		echo — Output one or more strings
+		*/
+		echo "<br>" . "Updated successfully" . "<br>";
+	}
+	else 
+	{
+		/*
+		ouptut failure to the screen
+		mysqli_error — Returns a string description of the last error
+		*/
+		echo "Error(UPDATE): " . $sql . "<br>" . mysqli_error($conn);
+	}
     
 	/*
 	create a new html file
@@ -144,48 +287,6 @@ Oddity : <?php echo $oddity; ?>
 	*/
 	chmod($newWebpage, 0644);
 	
-	//create variables for book table
-	$booksTable = book;
-	
-	// Create a query for the database
-	$query = "INSERT INTO $booksTable 
-	(title,publish,setting,plot,oddity,themes,characters,genre,author,url) VALUES 
-	('$title','$publisher','$setting','$plot','$oddity','$theme','$character','$genre','$author','$newWebpage')";
-
-	/*
-	the next line is commented out purposely
-	this line will show the constructed query on the screen for debug purposes
-	*/
-	//echo $query;
-	
-	/*
-	Get a response from the database by sending the connection and the query
-	mysqli_query — Performs a query on the database
-	return values
-		Returns FALSE on failure. 
-		For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries mysqli_query() will return a mysqli_result object. 
-		For other successful queries mysqli_query() will return TRUE.
-	*/
-	$response = mysqli_query($conn, $query);
-	
-	//if our query did not fail
-	if ($response)
-	{
-		/*
-		ouptut success to the screen
-		echo — Output one or more strings
-		*/
-		echo "<br>" . "New record created successfully" . "<br>";
-	}
-	else 
-	{
-		/*
-		ouptut failure to the screen
-		mysqli_error — Returns a string description of the last error
-		*/
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-	
 	//Close connection to the database
 	mysqli_close($conn);
 ?>
@@ -194,7 +295,7 @@ Oddity : <?php echo $oddity; ?>
 <p>
 Captured information<br>
 Title : <?php echo $title; ?><br>
-Publisher : <?php echo $publisher; ?><br>
+Publisher : <?php echo $publish; ?><br>
 Author : <?php echo $author; ?><br>
 Setting : <?php echo $setting; ?><br>
 Character : <?php echo $character; ?><br>
