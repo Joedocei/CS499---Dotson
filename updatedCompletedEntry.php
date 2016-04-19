@@ -28,8 +28,7 @@
     </div>
 </div>
 
-<?php	
-
+<?php
 	// Get a connection for the database
 	$dbHost = "mysql.cs.uky.edu";
 	$dbUser = "srve222";
@@ -65,7 +64,7 @@
 	/*
 	assigning variables from user entered data - data is sanitized
 	mysqli_real_escape_string — Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection
-	*/
+	*/	
 	$title = mysqli_real_escape_string($conn, $_POST["title"]);
 	$publish = mysqli_real_escape_string($conn, $_POST['publish']);
 	$author = mysqli_real_escape_string($conn, $_POST['author']);
@@ -84,6 +83,7 @@
 	*/
     ob_start();
 ?>
+
 <!--trapping data into buffer -->
 <!DOCTYPE html>
 <html>
@@ -129,21 +129,39 @@ Oddity : <?php echo $oddity; ?>
 </body>
 </html>
 
+
 <?php
+		
+	// Get a connection for the database
+	$dbHost = "mysql.cs.uky.edu";
+	$dbUser = "srve222";
+	$dbPass = "u0459665";
+
+	//create connection
+	$conn = mysqli_connect($dbHost, $dbUser, $dbPass,"srve222");
+
+	// Check connection
+	if ($conn->connect_error)
+	{
+		die("Connection failed: " . $conn->connect_error);
+	}
 
 	//create variables for book table
 	$booksTable = book;
 	
-	// Create a query for the database to insert the user information
-	$query = "INSERT INTO $booksTable 
-	(title,publish,setting,plot,oddity,themes,characters,genre,author) VALUES 
-	('$title','$publish','$setting','$plot','$oddity','$theme','$character','$genre','$author')";
+	$fileToUpdate = $_POST['fileName'];
+	//echo $fileToUpdate;
+	
+	// Create a query for the database to update with the user information
+	$query = "UPDATE $booksTable SET
+	title = '$title', publish = '$publish', setting = '$setting', plot = '$plot', oddity = '$oddity',
+	themes = '$theme', characters = '$character', genre = '$genre',author = '$author' WHERE bid = $fileToUpdate";
 	
 	/*
 	the next line is commented out purposely
 	this line will show the constructed query on the screen for debug purposes
 	*/
-	//echo $query;
+	echo $query;
 
 	/*
 	Get a response from the database by sending the connection and the query
@@ -159,11 +177,10 @@ Oddity : <?php echo $oddity; ?>
 	if ($response)
 	{
 		/*
-		ouptut success to the screen - success being an valid insert into database
+		ouptut success to the screen - success being an valid update on the database
 		echo — Output one or more strings
-		currently commented out since the output buffer is currently being captured
 		*/
-		//echo "<br>" . "New record created successfully" . "<br>";
+		echo "<br>" . "New record updated successfully" . "<br>";
 	}
 	else 
 	{
@@ -171,7 +188,7 @@ Oddity : <?php echo $oddity; ?>
 		ouptut failure to the screen
 		mysqli_error — Returns a string description of the last error
 		*/
-		echo "Error(Insert): " . $sql . "<br>" . mysqli_error($conn);
+		echo "Error(Update): " . $sql . "<br>" . mysqli_error($conn);
 	}
 	
 	// Create a query for the database to get the bookID 

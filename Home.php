@@ -163,15 +163,19 @@ used to group block-elements to format them with CSS, specifically with the bann
     </p>
 </div>
 
+<!-- div for recent tags section on the Homepage: NEEDS IMPLEMENTATION-->
 <div class="recentTags">
 </div>
 
+<!-- div for donate section on the Homepage: NEEDS IMPLEMENTATION-->
 <div class ="donate">
 </div>
 
+<!-- div for text block section on the Homepage: NEEDS IMPLEMENTATION-->
 <div class="textBlock">
 </div>
 
+<!-- div for bottom info section on the Homepage: NEEDS IMPLEMENTATION-->
 <div class="bottomInfo">
 </div>
 

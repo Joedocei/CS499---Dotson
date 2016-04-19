@@ -108,7 +108,6 @@
 	
 	<!--close fieldset-->
 	</fieldset>
-<input type="submit" value="Save" id="saveButton">
 
 <!--close form-->
 </form>

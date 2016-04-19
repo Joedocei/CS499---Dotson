@@ -1,10 +1,3 @@
-<?php
-if(isset($_GET['submit'])){
-$newQuery=$_GET['searchOption'];
-echo $newQuery;
-}
-?>
-
 <!--please refer to Home.php for full documentation on HTML elements and sections-->
 <!DOCTYPE html>
 <html>
@@ -41,7 +34,7 @@ echo $newQuery;
         
     <p>
     Search in
-	<form action="" method="GET">
+	<form action="" method="POST">
         <select class="searchField" name = "searchOptions">;
             <option value = "0"> Select any... </option>";
             <option value = "publish">Publisher</option>";
@@ -56,7 +49,7 @@ echo $newQuery;
             <option value = "*">All</option>";
         </select>
 		for<br>
-		<input type="text" name="name"><br>
+		<input type="text" name="searchText"><br>
 	<input type="submit">
 	</form>
     </p>
@@ -88,9 +81,8 @@ if ($conn->connect_error)
     die("Connection failed: " . $conn->connect_error);
 }
 
-//create variables for respective tables
+//create variable for database table
 $bookTable = "book";
-$commentsTable = "comments";
 
 //store the search option(publisher, title, author, etc...) into a variable
 $searchOption = $_POST["searchOptions"];
@@ -120,10 +112,16 @@ empty — Determine whether a variable is empty
 */
 if (!empty($sql))
 {
-	/*construct the rest of the query call
-	/implode — Join array elements with a string
+	/*
+	construct the rest of the query call
+	implode — Join array elements with a string
 	*/
 	$query .= ' WHERE ' . implode(' LIKE ', $sql);
+}
+
+else //report error
+{
+	echo "Error-empty sql variable: $sql <br>";
 }
 
 /*
@@ -145,7 +143,7 @@ $response = mysqli_query($conn, $query);
 if ($response)
 {
 	/*
-	ouptut success to the screen
+	ouptut success to the screen - success being a valid search on the database
 	echo — Output one or more strings
 	*/
 	echo "<br>" . "Records searched successfully." . "<br>";
@@ -165,7 +163,7 @@ mysqli_num_rows — Gets the number of rows in a result
 */
 if(!mysqli_num_rows($response))
 {
-	//output following string to the user
+	//output following string to the user asking if they want to add an entry into database
 	echo "No data for " . $searchText. ". Would you like to Add an entry into the Database?";
 	echo "<a href= \"entryPage.php\"> Click Here! </a>";
 }
@@ -174,7 +172,7 @@ if(!mysqli_num_rows($response))
 else 
 {
 	//echo the following html to create a results table
-	echo '<table align="left" cellspacing="5" cellpadding="8">';
+	echo '<table align="center" cellspacing="5" cellpadding="8">';
 	
 	/*
 	while there are rows of results left from our query
@@ -184,7 +182,7 @@ else
 	{
 		//echo a row of our reponse variable to the screen
 		// "." concatenates strings
-		echo '<tr><td align="left"><a href =' . 
+		echo '<tr><td><a href =' . 
 		$row['url'] . '>' .
 		$row['title'] . '</td><td align="left">'  . "by: " .
 		$row['author'] . '</a></td>' . '</tr>';
