@@ -35,8 +35,8 @@
     <p>
     Search in
 	<form action="" method="POST">
-        <select class="searchField" name = "searchOptions">;
-            <option value = "0"> Select any... </option>";
+        <select required class="searchField" name = "searchOptions">;
+            <option value = ""> Select any... </option>";
             <option value = "publish">Publisher</option>";
             <option value = "title">Title</option>";
             <option value = "author">Author</option>";

@@ -122,14 +122,15 @@ used to group block-elements to format them with CSS, specifically with the bann
 		<!-- select tag
 		used to create a drop-down list
 		name - Specifies the name of an <select> element
+		required - Specifies that the user is required to select a value before submitting the form
 		-->
-        <select class="searchField" name = "searchOptions">;
+        <select required class="searchField" name = "searchOptions">;
 		
 			<!-- option tag 
 			define the available options in the list
 			value - Specifies the value to be sent to a server
 			-->
-            <option value = "0"> Select any... </option>";
+            <option value = ""> Select any... </option>";
             <option value = "publish">Publisher</option>";
             <option value = "title">Title</option>";
             <option value = "author">Author</option>";
